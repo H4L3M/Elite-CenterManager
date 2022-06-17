@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "803356594392",
+    "project_id": "halem-devloper",
+    "storage_bucket": "halem-devloper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803356594392:android:85d20f63a681494d2e47ad",
+        "android_client_info": {
+          "package_name": "com.nokhba.center.center_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803356594392-tufuajdem3tb5jh0b4ce1a97uui985fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDns4x8UjcPZR0EsMFdQNW6i-KMPklVVog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803356594392-tufuajdem3tb5jh0b4ce1a97uui985fh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803356594392-lg3i05kvr9t0o6omk2da29rk848te730.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nokhba.center.centerManager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
