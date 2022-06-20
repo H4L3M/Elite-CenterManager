@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:center_manager/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +13,9 @@ class AddParticipant extends StatefulWidget {
 }
 
 class _AddParticipantState extends State<AddParticipant> {
+  String addNewParticipant = "Add New Participant";
+  String buttonTextSuccess = "Participant Added Successfully";
+
   bool _isFreeFormation = false;
   bool _isFormationPaid = false;
   bool _isRegistrationPaid = false;
@@ -19,6 +25,7 @@ class _AddParticipantState extends State<AddParticipant> {
   late String _formationName = "";
   late String _formationGroup = "";
   late String _formationLevel = "";
+  late String _status = "";
 
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
@@ -36,7 +43,7 @@ class _AddParticipantState extends State<AddParticipant> {
   final TextEditingController _schoolBranch = TextEditingController();
   final TextEditingController _schoolLevel = TextEditingController();
 
-  var db = FirebaseFirestore.instance;
+  var participants = FirebaseFirestore.instance.collection('participants');
 
   @override
   Widget build(BuildContext context) {
@@ -150,61 +157,46 @@ class _AddParticipantState extends State<AddParticipant> {
       children: [
         Row(
           children: [
-            Expanded(
-                child: Stack(
-              children: [
-                TextFormField(
-                  controller: _firstName,
-                  initialValue: null,
-                  decoration: const InputDecoration(
-                    labelText: 'First Name',
-                    border: OutlineInputBorder(),
-                  ),
+            textField(
+              TextFormField(
+                controller: _firstName,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'First Name',
+                  border: OutlineInputBorder(),
                 ),
-              ],
-            )),
-            const SizedBox(
-              width: 24,
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _lastName,
-                    initialValue: null,
-                    decoration: const InputDecoration(
-                      labelText: 'Last Name',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
               ),
             ),
+            const SizedBox(width: 24),
+            textField(
+              TextFormField(
+                controller: _lastName,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'Last Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            )
           ],
         ),
         const SizedBox(height: 24),
         // const Center(child: Text('Guardian information')),
         Row(
           children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _guardianFirstName,
-                    initialValue: null,
-                    decoration: const InputDecoration(
-                      labelText: 'Guardian First Name',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
+            textField(
+              TextFormField(
+                controller: _guardianFirstName,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'Guardian First Name',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
-            const SizedBox(
-              width: 24,
-            ),
-            Expanded(
-              child: TextFormField(
+            const SizedBox(width: 24),
+            textField(
+              TextFormField(
                 controller: _guardianLastName,
                 initialValue: null,
                 decoration: const InputDecoration(
@@ -218,22 +210,18 @@ class _AddParticipantState extends State<AddParticipant> {
         const SizedBox(height: 24),
         Row(
           children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _dateOfBirth,
-                    initialValue: null,
-                    decoration: const InputDecoration(
-                      labelText: 'Date of Birth',
-                      border: OutlineInputBorder(), // Only numbers can be enter
-                    ),
-                    // maxLength: 8,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                  ),
+            textField(
+              TextFormField(
+                controller: _dateOfBirth,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'Date of Birth',
+                  border: OutlineInputBorder(), // Only numbers can be enter
+                ),
+                // maxLength: 8,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
                 ],
               ),
             ),
@@ -271,58 +259,47 @@ class _AddParticipantState extends State<AddParticipant> {
         const SizedBox(height: 24),
         Row(
           children: [
-            Expanded(
-                child: Stack(
-              children: [
-                TextFormField(
-                  controller: _mobileNumber,
-                  initialValue: null,
-                  decoration: const InputDecoration(
-                    labelText: 'Mobile Number',
-                    border: OutlineInputBorder(),
-                  ),
-                  // maxLength: 10,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
+            textField(
+              TextFormField(
+                controller: _mobileNumber,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'Mobile Number',
+                  border: OutlineInputBorder(),
                 ),
-              ],
-            )),
-            const SizedBox(
-              width: 24,
+                // maxLength: 10,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+              ),
             ),
-            Expanded(
-                child: Stack(
-              children: [
-                TextFormField(
-                  controller: _identificationNumber,
-                  initialValue: null,
-                  decoration: const InputDecoration(
-                    labelText: 'Identification Number',
-                    border: OutlineInputBorder(),
-                  ),
+            const SizedBox(width: 24),
+            textField(
+              TextFormField(
+                controller: _identificationNumber,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'Identification Number',
+                  border: OutlineInputBorder(),
                 ),
-              ],
-            )),
+              ),
+            )
           ],
         ),
         const SizedBox(height: 24),
         Row(
           children: [
-            Expanded(
-                child: Stack(
-              children: [
-                TextFormField(
-                  controller: _address,
-                  initialValue: null,
-                  decoration: const InputDecoration(
-                    labelText: 'Address',
-                    border: OutlineInputBorder(),
-                  ),
+            textField(
+              TextFormField(
+                controller: _address,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'Address',
+                  border: OutlineInputBorder(),
                 ),
-              ],
-            )),
+              ),
+            ),
             const SizedBox(
               width: 24,
             ),
@@ -338,9 +315,16 @@ class _AddParticipantState extends State<AddParticipant> {
                   items: [
                     'Agadir',
                     'Ait Melloul',
+                    'Anza',
+                    'Azrou',
+                    'Belfaa',
+                    'Biougra',
+                    'Drarga',
                     'Inzegan',
                     'Ouled Teima',
                     'Taroudant',
+                    'Temsia',
+                    'Tikiouine',
                   ]
                       .map((label) => DropdownMenuItem(
                             value: label,
@@ -370,10 +354,16 @@ class _AddParticipantState extends State<AddParticipant> {
                     ),
                     items: [
                       'Office',
-                      'Suroban',
+                      'Excel',
+                      'Soroban',
                       'Band Aid',
+                      'Compatibility General',
+                      'E-commerce',
                       'French',
                       'English',
+                      'Math',
+                      'SVT',
+                      'Physique',
                     ]
                         .map((label) => DropdownMenuItem(
                               value: label,
@@ -451,57 +441,46 @@ class _AddParticipantState extends State<AddParticipant> {
                 ],
               ),
             ),
+            //         items: [
+            //           'Current',
+            //           'Expected',
+            //           'Finished',
+            //         ]
           ],
         ),
         const SizedBox(height: 24),
         Row(
           children: [
-            Expanded(
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _schoolName,
-                    initialValue: null,
-                    decoration: const InputDecoration(
-                      labelText: 'School Name',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
+            textField(
+              TextFormField(
+                controller: _schoolName,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'School Name',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
-            const SizedBox(
-              width: 24,
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _schoolLevel,
-                    initialValue: null,
-                    decoration: const InputDecoration(
-                      labelText: 'School Level',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
+            const SizedBox(width: 24),
+            textField(
+              TextFormField(
+                controller: _schoolLevel,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'School Level',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
-            const SizedBox(
-              width: 24,
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  TextFormField(
-                    controller: _schoolBranch,
-                    initialValue: null,
-                    decoration: const InputDecoration(
-                      labelText: 'School Branch',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
+            const SizedBox(width: 24),
+            textField(
+              TextFormField(
+                controller: _schoolBranch,
+                initialValue: null,
+                decoration: const InputDecoration(
+                  labelText: 'School Branch',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
           ],
@@ -510,26 +489,41 @@ class _AddParticipantState extends State<AddParticipant> {
     );
   }
 
+  Widget textField(Widget child) {
+    return Expanded(
+      child: Stack(
+        children: [
+          child,
+        ],
+      ),
+    );
+  }
+
   void addParticipant() {
-    final usr = <String, dynamic>{
-      'first_name': _firstName.text,
-      'last_Name': _lastName.text,
-      'date_of_birth': _dateOfBirth.text,
-      'address': _address.text,
-      'city': _city,
-      'mobile_number': _mobileNumber.text,
-      'icn': _identificationNumber.text,
-      'genre': _genre,
-      'guardian_name': '${_guardianFirstName.text} ${_guardianLastName.text}',
+    if (_identificationNumber.text == "") {
+      _identificationNumber.text = Utils().timestamp(11).toString();
+    }
+
+    final participant = <String, dynamic>{
+      'info': {
+        'full_name': '${_firstName.text} ${_lastName.text}',
+        'date_of_birth': _dateOfBirth.text,
+        'address': _address.text,
+        'city': _city,
+        'mobile_number': _mobileNumber.text,
+        'icn': _identificationNumber.text.toUpperCase(),
+        'genre': _genre,
+      },
       'formation': [
         {
           'name': _formationName,
           'group': _formationGroup,
           'level': _formationLevel,
           'free': _isFreeFormation,
-          'paid_formation': _isFormationPaid,
+          'paid': _isFormationPaid,
           'paid_registration': _isRegistrationPaid,
-          'registration_date': DateTime.now().millisecondsSinceEpoch,
+          'registration_date': Utils().timestamp(10),
+          // 'status': _status,
         }
       ],
       'school': {
@@ -537,13 +531,41 @@ class _AddParticipantState extends State<AddParticipant> {
         'branch': _schoolBranch.text,
         'level': _schoolLevel.text
       },
-      'first_registration': DateTime.now().millisecondsSinceEpoch,
+      'guardian_name': '${_guardianFirstName.text} ${_guardianLastName.text}',
+      'first_registration': Utils().timestamp(10),
     };
 
-    db.collection('participants').add(usr).then(
-          (DocumentReference doc) => print(' id of this doc is : ${doc.id}'),
-        ).whenComplete(() =>
-        print('Participant Added Successfully.')
-    );
+    participants
+        .doc(_identificationNumber.text.toUpperCase())
+        .set(participant)
+        .whenComplete(() => {Utils().inlineDelay(2000), init()});
+  }
+
+  void init() {
+    //info
+    _firstName.text = "";
+    _lastName.text = "";
+    _genre = "";
+    _dateOfBirth.text = "";
+    _mobileNumber.text = "";
+    _identificationNumber.text = "";
+    _address.text = "";
+    _city = "";
+
+    //guardian
+    _guardianFirstName.text = "";
+    _guardianLastName.text = "";
+
+    //formation
+    _formationName = "";
+    _formationGroup = "";
+    _formationLevel = "";
+    _isFormationPaid = false;
+    _isFreeFormation = false;
+
+    //school
+    _schoolName.text = "";
+    _schoolBranch.text = "";
+    _schoolLevel.text = "";
   }
 }
