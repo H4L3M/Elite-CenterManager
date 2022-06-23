@@ -1,6 +1,8 @@
-import 'package:center_manager/ui/home.dart';
-import 'package:flutter/material.dart';
+import 'package:center_manager/ui/nav/add_participant.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -17,12 +19,22 @@ class CenterManagerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Center Manager',
-        theme: ThemeData(
-          useMaterial3: true,
-          primarySwatch: Colors.blue,
-        ),
-        home: const Home());
+      debugShowCheckedModeBanner: false,
+      title: 'Center Manager',
+      theme: ThemeData(
+        // primaryColor: Colors.greenAccent,
+        // primarySwatch: Colors.lightBlue,
+        // primaryColorLight: Colors.white10,
+        // primaryColorDark: Colors.black87,
+        useMaterial3: true,
+        fontFamily:
+            GoogleFonts.comfortaa(fontWeight: FontWeight.bold).fontFamily,
+      ),
+      // home: const Home(),
+      home: const Scaffold(
+        backgroundColor: Colors.white,
+        body: AddParticipant(),
+      ),
+    );
   }
 }

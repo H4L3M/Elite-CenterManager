@@ -1,9 +1,9 @@
-import 'dart:async';
-
 import 'package:center_manager/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../const.dart';
 
 class AddParticipant extends StatefulWidget {
   const AddParticipant({Key? key}) : super(key: key);
@@ -25,7 +25,6 @@ class _AddParticipantState extends State<AddParticipant> {
   late String _formationName = "";
   late String _formationGroup = "";
   late String _formationLevel = "";
-  late String _status = "";
 
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
@@ -63,7 +62,7 @@ class _AddParticipantState extends State<AddParticipant> {
                 ],
               ),
               borderRadius: BorderRadius.all(
-                Radius.circular(4),
+                Radius.circular(10.0),
               ),
             ),
             child: Center(
@@ -136,11 +135,16 @@ class _AddParticipantState extends State<AddParticipant> {
               ),
               Center(
                 child: FloatingActionButton.extended(
+                  // hoverColor: Colors.greenAccent,
+                  splashColor: Colors.lightBlueAccent,
                   label: const Text('Add Participant'),
                   icon: const Icon(Icons.add),
-                  elevation: 0,
+                  elevation: 4,
+                  hoverElevation: 0,
                   onPressed: () {
-                    addParticipant();
+                    if (_firstName.text != "" && _lastName.text != "") {
+                      addParticipant();
+                    }
                   },
                 ),
               )
@@ -163,7 +167,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'First Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -174,7 +182,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Last Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             )
@@ -190,7 +202,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Guardian First Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -201,7 +217,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Guardian Last Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -216,7 +236,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Date of Birth',
-                  border: OutlineInputBorder(), // Only numbers can be enter
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ), // Only numbers can be enter
                 ),
                 // maxLength: 8,
                 keyboardType: TextInputType.number,
@@ -235,7 +259,11 @@ class _AddParticipantState extends State<AddParticipant> {
                     // initialValue: _sexVal,
                     decoration: const InputDecoration(
                       labelText: 'Genre',
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                     ),
                     items: [
                       'Male',
@@ -265,7 +293,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Mobile Number',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
                 // maxLength: 10,
                 keyboardType: TextInputType.number,
@@ -281,7 +313,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Identification Number',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             )
@@ -296,7 +332,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'Address',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -310,21 +350,34 @@ class _AddParticipantState extends State<AddParticipant> {
                   // initialValue: _sexVal,
                   decoration: const InputDecoration(
                     labelText: 'City',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30.0),
+                      ),
+                    ),
                   ),
                   items: [
                     'Agadir',
                     'Ait Melloul',
                     'Anza',
                     'Azrou',
-                    'Belfaa',
                     'Biougra',
+                    'Belfaa',
+                    'Beni Mellal',
+                    'Chtouka Aitbaha',
                     'Drarga',
+                    'El Kolea',
+                    'Essaouira',
+                    'Essmara',
                     'Inzegan',
+                    'Laayoune',
                     'Ouled Teima',
+                    'Rabat',
+                    'Sale',
                     'Taroudant',
                     'Temsia',
                     'Tikiouine',
+                    'Tiiznit',
                   ]
                       .map((label) => DropdownMenuItem(
                             value: label,
@@ -350,7 +403,11 @@ class _AddParticipantState extends State<AddParticipant> {
                     // initialValue: _sexVal,
                     decoration: const InputDecoration(
                       labelText: 'Formation Name',
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                     ),
                     items: [
                       'Office',
@@ -388,7 +445,11 @@ class _AddParticipantState extends State<AddParticipant> {
                     // initialValue: _sexVal,
                     decoration: const InputDecoration(
                       labelText: 'Formation Group',
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                     ),
                     items: [
                       'A',
@@ -396,6 +457,10 @@ class _AddParticipantState extends State<AddParticipant> {
                       'C',
                       'D',
                       'E',
+                      'F',
+                      'G',
+                      'H',
+                      'I',
                     ]
                         .map((label) => DropdownMenuItem(
                               value: label,
@@ -420,7 +485,11 @@ class _AddParticipantState extends State<AddParticipant> {
                     // initialValue: _sexVal,
                     decoration: const InputDecoration(
                       labelText: 'Formation Level',
-                      border: OutlineInputBorder(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
                     ),
                     items: [
                       'First',
@@ -457,7 +526,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'School Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -468,7 +541,11 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'School Level',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -479,10 +556,31 @@ class _AddParticipantState extends State<AddParticipant> {
                 initialValue: null,
                 decoration: const InputDecoration(
                   labelText: 'School Branch',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color.fromARGB(100, 229, 229, 229)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30.0),
+                    ),
+                  ),
                 ),
               ),
             ),
+            textField(
+              Autocomplete(
+                optionsBuilder: (TextEditingValue textEditingValue) {
+                  if (textEditingValue.text == '') {
+                    return const Iterable<String>.empty();
+                  }
+                  return listCities.where((String option) {
+                    return option.contains(textEditingValue.text.toLowerCase());
+                  });
+                },
+                onSelected: (String selection) {
+                  debugPrint('You just selected $selection');
+                },
+              ),
+            )
           ],
         ),
       ],
@@ -491,10 +589,13 @@ class _AddParticipantState extends State<AddParticipant> {
 
   Widget textField(Widget child) {
     return Expanded(
-      child: Stack(
-        children: [
-          child,
-        ],
+      child: Container(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(30.0),
+          ),
+        ),
+        child: child,
       ),
     );
   }
@@ -536,7 +637,7 @@ class _AddParticipantState extends State<AddParticipant> {
     };
 
     participants
-        .doc(_identificationNumber.text.toUpperCase())
+        .doc(Utils().timestamp(11))
         .set(participant)
         .whenComplete(() => {Utils().inlineDelay(2000), init()});
   }

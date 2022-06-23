@@ -1,7 +1,8 @@
 {
   "projects": {
-    "default": "halem-devloper",
-    "e": "halem-devloper"
+    "default": "center-nokhba",
+    "e": "halem-devloper",
+    "y": "center-nokhba"
   },
   "targets": {}
 }

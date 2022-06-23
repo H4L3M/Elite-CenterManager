@@ -21,11 +21,11 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        // return android;
       case TargetPlatform.iOS:
-        return ios;
+        // return ios;
       case TargetPlatform.macOS:
-        return macos;
+        // return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,40 +44,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB5_3xigAcbM7q1OTHsFEvrLou2G5Ni23g',
-    appId: '1:803356594392:web:b234c79a699d22802e47ad',
-    messagingSenderId: '803356594392',
-    projectId: 'halem-devloper',
-    authDomain: 'halem-devloper.firebaseapp.com',
-    storageBucket: 'halem-devloper.appspot.com',
-    measurementId: 'G-X7HBCBGQYT',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDns4x8UjcPZR0EsMFdQNW6i-KMPklVVog',
-    appId: '1:803356594392:android:85d20f63a681494d2e47ad',
-    messagingSenderId: '803356594392',
-    projectId: 'halem-devloper',
-    storageBucket: 'halem-devloper.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBF6UcS9ND-XSkQGIDEQYXOQLLvIOns6dA',
-    appId: '1:803356594392:ios:f2abc6e885b3f3522e47ad',
-    messagingSenderId: '803356594392',
-    projectId: 'halem-devloper',
-    storageBucket: 'halem-devloper.appspot.com',
-    iosClientId: '803356594392-lg3i05kvr9t0o6omk2da29rk848te730.apps.googleusercontent.com',
-    iosBundleId: 'com.nokhba.center.centerManager',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBF6UcS9ND-XSkQGIDEQYXOQLLvIOns6dA',
-    appId: '1:803356594392:ios:f2abc6e885b3f3522e47ad',
-    messagingSenderId: '803356594392',
-    projectId: 'halem-devloper',
-    storageBucket: 'halem-devloper.appspot.com',
-    iosClientId: '803356594392-lg3i05kvr9t0o6omk2da29rk848te730.apps.googleusercontent.com',
-    iosBundleId: 'com.nokhba.center.centerManager',
+    apiKey: 'AIzaSyCEOWKcLbmmHGYXMvuo57Vhs-0pslDETWM',
+    appId: '1:970703285746:web:115cbaa1bb2c08738a8f6b',
+    messagingSenderId: '970703285746',
+    projectId: 'center-nokhba',
+    authDomain: 'center-nokhba.firebaseapp.com',
+    storageBucket: 'center-nokhba.appspot.com',
+    measurementId: 'G-CX1DLRCDWK',
   );
 }
